@@ -11,7 +11,8 @@ int windowHeight=940;
 double Txval=0;
 double Tyval=0;
 double sval=0;
- bool flagScale=false;
+double cval=0;
+ bool flagScale=true;
 
 
  ///sun
@@ -365,7 +366,7 @@ glPopMatrix();
 ///boat
 glPushMatrix();
  glPushMatrix();
-   glTranslated(sval,0,0);
+   glTranslated(cval,0,0);
    boat();
  glPopMatrix();
  glPopMatrix();
@@ -753,14 +754,17 @@ void myKeyboardFunc( unsigned char key, int x, int y )
 glutPostRedisplay();
 }
 
-void animate()
+void update()
 {
 if (flagScale == true)
 {
-sval+= 0.001;
+sval+= 0.01;
 if(sval > 24)
 sval = -14;
 
+cval+= 0.02;
+if(cval>11)
+cval = 0;
 
 }
 if (flagScale == false)
@@ -779,7 +783,7 @@ glutInitWindowPosition(100,100);
 glutInitWindowSize(windowWidth, windowHeight);
 glutCreateWindow("Poushali Home City View");
 glutKeyboardFunc(myKeyboardFunc);
-glutIdleFunc(animate);
+glutIdleFunc(update);
 glutDisplayFunc(display);
 glutMainLoop();
 return 0;
